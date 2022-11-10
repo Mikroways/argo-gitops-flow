@@ -1,0 +1,39 @@
+namespace: default-dev
+cluster: 
+  name: in-cluster
+  nameSuffix: ''
+  address: https://kubernetes.default.svc
+
+argo:
+  namespace: argocd
+  readOnlyGroups: []
+  adminGroups: []
+  repositories: []
+    #  - name:
+    #    username:
+    #    password:
+    #    url:
+  baseApplication:
+    projectName: default
+    repoURL: null
+    path: null
+    chart: null
+    targetRevision: null
+    helm: {}
+    syncPolicy: {}
+  applicationRequirements:
+    enabled: false
+    repoURL: null
+    path: null
+    chart: null
+    targetRevision: null
+    helm: {}
+    syncPolicy: {}
+  application:
+    enabled: false
+    repoURL: null
+    path: null
+    chart: null
+    targetRevision: null
+    helm: {}
+    syncPolicy: {}

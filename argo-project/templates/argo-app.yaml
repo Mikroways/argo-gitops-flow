@@ -1,0 +1,80 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ include "argo-project.argoBaseAppName" . }}
+  namespace: {{ required ".argo.namespace must be defined" .Values.argo.namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "-4"
+spec:
+  project: {{ .Values.argo.baseApplication.projectName }}
+  destination:
+    name: {{ include "argo-project.argoClusterName" . }}
+    namespace: {{ .Values.namespace }}
+  source: 
+    repoURL: {{ .Values.argo.baseApplication.repoURL }}
+    path: {{ .Values.argo.baseApplication.path | default "" }}
+    targetRevision: {{ .Values.argo.baseApplication.targetRevision | default "x" }}
+    chart: {{ .Values.argo.baseApplication.chart | default "" }}
+    {{- with .Values.argo.baseApplication.helm }}
+    helm:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+  {{- with .Values.argo.baseApplication.syncPolicy }}
+  syncPolicy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+{{- if and .Values.argo.applicationRequirements.enabled }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ include "argo-project.argoAppReqName" . }}
+  namespace: {{ .Values.argo.namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "-3"
+spec:
+  project: {{ include "argo-project.argoProjectName" . }}
+  destination:
+    name: {{ include "argo-project.argoClusterName" . }}
+    namespace: {{ .Values.namespace }}
+  source: 
+    repoURL: {{ .Values.argo.applicationRequirements.repoURL }}
+    path: {{ .Values.argo.applicationRequirements.path | default "" }}
+    targetRevision: {{ .Values.argo.applicationRequirements.targetRevision | default "x" }}
+    chart: {{ .Values.argo.applicationRequirements.chart | default "" }}
+    {{- with .Values.argo.applicationRequirements.helm }}
+    helm:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+  {{- with .Values.argo.applicationRequirements.syncPolicy }}
+  syncPolicy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+{{- end }}
+{{- if and .Values.argo.application.enabled }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ include "argo-project.argoAppName" . }}
+  namespace: {{ .Values.argo.namespace }}
+spec:
+  project: {{ include "argo-project.argoProjectName" . }}
+  destination:
+    name: {{ include "argo-project.argoClusterName" . }}
+    namespace: {{ .Values.namespace }}
+  source: 
+    repoURL: {{ .Values.argo.application.repoURL }}
+    path: {{ .Values.argo.application.path | default "" }}
+    targetRevision: {{ .Values.argo.application.targetRevision | default "x" }}
+    chart: {{ .Values.argo.application.chart | default "" }}
+    {{- with .Values.argo.application.helm }}
+    helm:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+  {{- with .Values.argo.application.syncPolicy }}
+  syncPolicy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+{{- end }}

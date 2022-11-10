@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: {{ include "argo-project.argoProjectName" . }}
+  namespace: {{ required ".argo.namespace must be defined" .Values.argo.namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "-5"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: "{{ include "argo-project.argoProjectName" .  }} project"
+  sourceRepos:
+  - '*'
+  destinations:
+  - namespace: {{ .Values.namespace }}
+    name: {{ include "argo-project.argoClusterName" . }}
+  namespaceResourceWhitelist:
+  - group: "*"
+    kind: "*"
+  roles:
+  - name: admin
+    description: "{{ include "argo-project.argoProjectName" . }} Admin team's deployment role"
+    policies:
+    - p, proj:{{ include "argo-project.argoProjectName" . }}:admin, applications, *, {{ include "argo-project.argoProjectName" .}}/*, allow
+    - p, proj:{{ include "argo-project.argoProjectName" . }}:admin, repositories, *, {{ include "argo-project.argoProjectName" .}}/*, allow
+    - p, proj:{{ include "argo-project.argoProjectName" . }}:admin, exec, create, {{ include "argo-project.argoProjectName" . }}/*, allow
+    {{- with .Values.argo.adminGroups }}
+    groups:
+      {{- toYaml . | nindent 8 }}
+    {{- end }}
+  - name: readonly
+    description: "{{ include "argo-project.argoProjectName" . }} ReadOnly team's deployment role"
+    policies:
+    - p, proj:{{ include "argo-project.argoProjectName" . }}:readonly, applications, get, {{  include "argo-project.argoProjectName" . }}/*, allow
+    - p, proj:{{ include "argo-project.argoProjectName" . }}:readonly, applications, logs, {{  include "argo-project.argoProjectName" . }}/*, allow
+    {{- with .Values.argo.readOnlyGroups }}
+    groups:
+      {{- toYaml . | nindent 8 }}
+    {{- end }}
+  orphanedResources:
+    warn: false

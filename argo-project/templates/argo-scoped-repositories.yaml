@@ -1,0 +1,28 @@
+{{- $projectName := include "argo-project.argoProjectName" . -}}
+{{- $namespace := .Values.argo.namespace -}}
+{{- range .Values.argo.repositories }}
+{{- $name := printf "%s-%s" (include "argo-project.argoProjectName" $ ) (required "A repository must define a name" .name ) | trunc 63 | trimSuffix "-" }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ $name }}
+  namespace: {{ $namespace }}
+  labels:
+    argocd.argoproj.io/secret-type: repository
+type: Opaque
+stringData:
+  project: {{ $projectName }}
+  name: {{ $name }}
+  url: {{ required "A repository must define a url" .url }}
+  username: {{ required "A repository must define a username" .username  }}
+  password: {{ required "A repository must define a password" .password }}
+{{- if .enableOCI }}
+  enableOCI: "true"
+  type: helm
+{{- else }}
+{{- if .type }}
+  type: {{ .type }}
+{{- end }}
+{{- end }}
+{{- end }}

@@ -1,0 +1,38 @@
+namespace: my-project
+cluster: 
+  name: testing
+
+argo:
+  readOnlyGroups:
+    - exampleADgroupRO
+  adminGroups:
+    - exampleADAdmin
+  repositories:
+    - name: my-repo
+      url: htts://a-url.repo.com/project/app
+      username: user_a
+      password: secret-pass
+  applicationRequirements:
+    enabled: true
+    repoURL: https://charts.bitnami.com/bitnami
+    targetRevision: 11.3.x
+    chart: mariadb
+    helm:
+      values: |
+        auth:
+          rootPassword: rootpass
+          database: my-app-db
+          username: user
+          password: supersecret
+  application:
+    enabled: true
+    repoURL: https://app-chart-repo
+    path: my-project
+    targetRevision: HEAD
+    helm:
+      values: |
+        myValue: 1
+      valueFiles:
+        - values.yaml
+        - values-version.yaml
+        - secrets+age-import:///helm-secrets-private-keys/age-key.txt?values-secrets.yaml

@@ -1,0 +1,56 @@
+namespace: default-dev
+namespaceLabels: {}
+registrySecret:
+  name: container-registry
+  dockerconfigjson: null
+
+networkPolicies: {}
+  #  - name: allow-namespace-ingress-traffic
+  #    spec:
+  #      podSelector: {}
+  #      ingress:
+  #        - from:
+  #            - namespaceSelector:
+  #                matchLabels:
+  #                  kubernetes.io/metadata.name: "{{ .Values.namespace }}"
+  #  - name: default-deny-egress-traffic
+  #    spec:
+  #      podSelector: {}
+  #      policyTypes:
+  #        - Egress
+  #  - name: allow-dns-egress-traffic
+  #    spec:
+  #      podSelector: {}
+  #      policyTypes:
+  #        - Egress
+  #      egress:
+  #        - to:
+  #          - namespaceSelector:
+  #              matchLabels:
+  #                name: kube-system
+  #          ports:
+  #          - protocol: UDP
+  #            port: 53
+  #          - protocol: UDP
+  #            port: 1053
+
+quota:
+  requests:
+    cpu: '1'
+    memory: 1Gi
+  limits:
+    cpu: '2'
+    memory: 2Gi
+  pods: "10"
+  persistentvolumeclaims: "20"
+  resourcequotas: "1"
+  services: "5"
+
+limits:
+  default:
+    cpu: 200m
+    memory: 512Mi
+  defaultRequest:
+    cpu: 100m
+    memory: 256Mi
+  type: Container
