@@ -1,0 +1,36 @@
+apiVersion: v1
+entries:
+  argo-base-app:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-02-23T21:08:01.182318198Z"
+    description: 'Creates an ArgoCD base application to provide a managed namespace
+      with some policies applied: - Creates the namespace where resources shall be
+      created for a specific   team. - A docker-registry kind Secret so pods can use
+      it as ImagePullSecrets. - A ResourceQuota to ensure a controlled resource allocation
+      per namespace. - A LimitRange to force each container to set resources when
+      they are not set. '
+    digest: 49f7dc2da8c46d708d2a54ba3888acf1b04f0b70a62e0442fff3141280f274a2
+    name: argo-base-app
+    type: application
+    urls:
+    - https://github.com/Mikroways/argo-gitops-flow/releases/download/argo-base-app-1.0.0/argo-base-app-1.0.0.tgz
+    version: 1.0.0
+  argo-project:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-02-23T21:08:01.364836542Z"
+    description: 'Creates an ArgoCD AppProject and a sort of ArgoCD Applications to
+      bootstrap a complete environment. The AppProject would set RBAC permissions
+      to allow project admin role to manage each ArgoCD resource for this project,
+      and a read only role to view each resource and access container logs. This chart
+      also create an ArgoCD base application (managed as a chart), and allows bootstrapping
+      an ArgoCD application to setup environment resources (as databases) and the
+      project application itself. '
+    digest: a435403833a6140eac8612b52d137b4f41626626fe25b6a4a8af052a3b6aae29
+    name: argo-project
+    type: application
+    urls:
+    - https://github.com/Mikroways/argo-gitops-flow/releases/download/argo-project-1.0.4/argo-project-1.0.4.tgz
+    version: 1.0.4
+generated: "2023-02-23T21:08:01.364847843Z"
