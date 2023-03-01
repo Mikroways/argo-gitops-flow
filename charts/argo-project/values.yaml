@@ -15,10 +15,10 @@ argo:
     #    url:
   baseApplication:
     projectName: default
-    repoURL: null
+    repoURL: https://mikroways.github.io/argo-gitops-flow
     path: null
-    chart: null
-    targetRevision: null
+    chart: argo-base-app
+    targetRevision: 1.0.*
     helm: {}
     syncPolicy: {}
   applicationRequirements:
