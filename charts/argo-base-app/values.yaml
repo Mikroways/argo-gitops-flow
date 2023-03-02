@@ -35,6 +35,7 @@ networkPolicies: {}
   #            port: 1053
 
 quota:
+  enabled: true
   requests:
     cpu: '1'
     memory: 1Gi
@@ -47,6 +48,7 @@ quota:
   services: "5"
 
 limits:
+  enabled: true
   default:
     cpu: 200m
     memory: 512Mi

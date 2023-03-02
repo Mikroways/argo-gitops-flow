@@ -1,3 +1,4 @@
+{{- if .Values.quota.enabled }}
 apiVersion: v1
 kind: ResourceQuota
 metadata:
@@ -15,3 +16,4 @@ spec:
     persistentvolumeclaims: {{ .Values.quota.persistentvolumeclaims | default "20"}}
     resourcequotas: {{ .Values.quota.resourcequotas | default "1"}}
     services: {{ .Values.quota.services | default "5"}}
+{{- end }}

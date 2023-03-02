@@ -27,6 +27,7 @@ el cluster de Kubernetes. Básicamente se encarga de crear:
 | `namespace` | string | `default-dev` | Namespace que utilizará el proyecto |
 | `namespaceLabels` | string | {} | Labels para el namespace creado |
 | `registrySecret.dockerconfigjson` | string | `null` | String encodeado que contiene los datos para conectarse a la registry, para instrucciones de cómo generarlo ver [Registry secret](##registry-secret) |
+| `quota.requests.enabled` | boolean | `true` | Definir el ResourceQuota. Por defecto sí |
 | `quota.requests.cpu` | string | `'1'` | La suma de los requerimientos de CPU de los pods del namespace, que estén no terminados, no puede superar este valor.  |
 | `quota.requests.memory` | string | `1Gi` | Idem ant. pero con los requerimientos de memoria  |
 | `quota.limits.cpu` | string | `'2'` | Idem ant. pero con la suma de límites de CPU |
@@ -35,6 +36,7 @@ el cluster de Kubernetes. Básicamente se encarga de crear:
 | `quota.persistentvolumeclaims` | string | `"20"` | El número total de `PersistentVolumeClaims` que pueden existir en el namespace. |
 | `quota.resourcequotas` | string | `"1"` | El número total de `pods` en un estado no terminal que puede existir en el namespace |
 | `quota.services` | string | `"5"` | El número total de `Services` que pueden existir en el espacio de nombres |
+| `limits.enabled` | boolean | `true` | Definir el LimitRange. Por defecto sí |
 | `limits.default.cpu` | string | `200m` | El límite de CPU por defecto para los pods/contendores del namespace |
 | `limits.default.memory` | string | `512Mi` | El límite de memoria por defecto para los pods/contendores del namespace |
 | `limits.defaultRequest.cpu` | string | `100m` | Requerimientos de CPU por defecto para los pods/contendores del namespace |
