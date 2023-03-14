@@ -26,7 +26,9 @@ el cluster de Kubernetes. Básicamente se encarga de crear:
 |-----|------|---------|-------------|
 | `namespace` | string | `default-dev` | Namespace que utilizará el proyecto |
 | `namespaceLabels` | string | {} | Labels para el namespace creado |
-| `registrySecret.dockerconfigjson` | string | `null` | String encodeado que contiene los datos para conectarse a la registry, para instrucciones de cómo generarlo ver [Registry secret](##registry-secret) |
+| `registrySecret.name` | string | `container-registry` | **Deprecado**. Nombre del secreto usado por el [Registry secret](#registry-secret) |
+| `registrySecret.dockerconfigjson` | string | `null` | **Deprecado**. String encodeado que contiene los datos para conectarse a la registry, para instrucciones de cómo generarlo ver [Registry secret](#registry-secret) |
+| `registrySecrets` | list | `[]` | Lista de objetos con los campos `.name` y `.dockerconfigjson` para crear varios secretos que contienen los datos para conectarse a la registry, para instrucciones de cómo generarlo ver [Registry secret](#registry-secret). **Nueva funcionalidad que reemplaza `registrySecret`**. |
 | `quota.enabled` | boolean | `true` | Definir el ResourceQuota. Por defecto sí |
 | `quota.requests.cpu` | string | `'1'` | La suma de los requerimientos de CPU de los pods del namespace, que estén no terminados, no puede superar este valor.  |
 | `quota.requests.memory` | string | `1Gi` | Idem ant. pero con los requerimientos de memoria  |
@@ -46,7 +48,7 @@ el cluster de Kubernetes. Básicamente se encarga de crear:
 
 ## Registry secret
 
-Ya que difieren las formas de conectarse a las distintas registrys, se deja a
+Ya que difieren las formas de conectarse a las distintas registries, se deja a
 criterio del usuario la forma de generar el `dockerconfigjson`.
 
 Una forma es utilizando `kubectl` con la opción `--dry-run` (para que no cree
@@ -69,7 +71,10 @@ eyJhdXRocyI6eyJyZWdpc3RyeS5pbnRhLmdvYi5hciI6eyJ1c2VybmFtZSI6IlVTVUFSSU8iLCJwYXNz
 ```
 
 Esto nos devuelve (y guarda en una variable de ambiente) el string que debemos
-utilizar en el valor `registrySecret.dockerconfigjson` del chart.
+utilizar en cada valor `registrySecrets[x].dockerconfigjson` del chart.
+
+> Antes el chart soportaba únicamente un único registrySecret. Ahora soporta una
+> lista de registrySecrets.
 
 Podemos ver que simplemente es un base 64 de un json de los datos provistos:
   
