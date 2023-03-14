@@ -1,5 +1,10 @@
 namespace: default-dev
 namespaceLabels: {}
+registrySecrets: []
+# - name: container-registry
+#   dockerconfigjson: null
+
+# Deprecated. New versions will use registrySecrets instead of registrySecret
 registrySecret:
   name: container-registry
   dockerconfigjson: null

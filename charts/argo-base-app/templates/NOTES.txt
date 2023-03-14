@@ -1,0 +1,7 @@
+{{- if .Values.registrySecret.dockerconfigjson }}
+Deprecation warning!!
+
+Usage of .Values.registrySecret is deprecated. New versions will use
+.Values.registrySecrets, that is a list of objects with .name and
+.dockerconfigjson fields.
+{{- end }}
