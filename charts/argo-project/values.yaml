@@ -18,7 +18,7 @@ argo:
     repoURL: https://mikroways.github.io/argo-gitops-flow
     path: null
     chart: argo-base-app
-    targetRevision: 1.0.*
+    targetRevision: 1.1.*
     helm: {}
     syncPolicy: {}
   applicationRequirements:
