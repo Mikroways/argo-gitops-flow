@@ -29,7 +29,7 @@ el cluster de Kubernetes. Básicamente se encarga de crear:
 | `registrySecret.name` | string | `container-registry` | **Deprecado**. Nombre del secreto usado por el [Registry secret](#registry-secret) |
 | `registrySecret.dockerconfigjson` | string | `null` | **Deprecado**. String encodeado que contiene los datos para conectarse a la registry, para instrucciones de cómo generarlo ver [Registry secret](#registry-secret) |
 | `registrySecrets` | list | `[]` | Lista de objetos con los campos `.name` y `.dockerconfigjson` para crear varios secretos que contienen los datos para conectarse a la registry, para instrucciones de cómo generarlo ver [Registry secret](#registry-secret). **Nueva funcionalidad que reemplaza `registrySecret`**. |
-| `quota.requests.enabled` | boolean | `true` | Definir el ResourceQuota. Por defecto sí |
+| `quota.enabled` | boolean | `true` | Definir el ResourceQuota. Por defecto sí |
 | `quota.requests.cpu` | string | `'1'` | La suma de los requerimientos de CPU de los pods del namespace, que estén no terminados, no puede superar este valor.  |
 | `quota.requests.memory` | string | `1Gi` | Idem ant. pero con los requerimientos de memoria  |
 | `quota.limits.cpu` | string | `'2'` | Idem ant. pero con la suma de límites de CPU |
