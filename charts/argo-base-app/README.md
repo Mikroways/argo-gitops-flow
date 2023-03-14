@@ -54,20 +54,20 @@ criterio del usuario la forma de generar el `dockerconfigjson`.
 Una forma es utilizando `kubectl` con la opción `--dry-run` (para que no cree
 nada). Ejemplo:
 
-Tenemos una registry en `https://registry.inta.gob.ar` cuyas credenciales son:
+Tenemos una registry en `https://registry.gitlab.com` cuyas credenciales son:
 
 - usuario: `USUARIO`
 - contraseña: `TOKEN123`
 
 ```bash
 DOCKERCONFIGJSON=$(kubectl create secret docker-registry regcred \
-  --docker-server=registry.inta.gob.ar \
+  --docker-server=registry.gitlab.com \
   --docker-username=USUARIO \
   --docker-password=TOKEN123 \
   --dry-run=client -o jsonpath='{ .data.\.dockerconfigjson }') \
   && echo $DOCKERCONFIGJSON
 
-eyJhdXRocyI6eyJyZWdpc3RyeS5pbnRhLmdvYi5hciI6eyJ1c2VybmFtZSI6IlVTVUFSSU8iLCJwYXNzd29yZCI6IlRPS0VOMTIzIiwiYXV0aCI6IlZWTlZRVkpKVHpwVVQwdEZUakV5TXc9PSJ9fX0=
+eyJhdXRocyI6eyJyZWdpc3RyeS5naXRsYWIuY29tIjp7InVzZXJuYW1lIjoiVVNVQVJJTyIsInBhc3N3b3JkIjoiVE9LRU4xMjMiLCJhdXRoIjoiVlZOVlFWSkpUenBVVDB0RlRqRXlNdz09In19fQ==
 ```
 
 Esto nos devuelve (y guarda en una variable de ambiente) el string que debemos
@@ -79,10 +79,10 @@ utilizar en cada valor `registrySecrets[x].dockerconfigjson` del chart.
 Podemos ver que simplemente es un base 64 de un json de los datos provistos:
   
 ```bash
-❯ echo $DOCKERCONFIGJSON | base64 -d | jq
+❯ echo $DOCKERCONFIGJSON | base64 -d | jq .
 {
   "auths": {
-    "registry.inta.gob.ar": {
+    "registry.gitlab.com": {
       "username": "USUARIO",
       "password": "TOKEN123",
       "auth": "VVNVQVJJTzpUT0tFTjEyMw=="
