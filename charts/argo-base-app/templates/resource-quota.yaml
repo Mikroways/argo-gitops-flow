@@ -10,7 +10,9 @@ spec:
   hard:
     requests.cpu: {{ .Values.quota.requests.cpu | default "1"}}
     requests.memory: {{ .Values.quota.requests.memory | default "1Gi"}}
-    limits.cpu: {{ .Values.quota.limits.cpu | default "2"}}
+    {{- with .Values.quota.limits.cpu }}
+    limits.cpu: {{ . }}
+    {{- end }}
     limits.memory: {{ .Values.quota.limits.memory | default "2Gi"}}
     pods: {{ .Values.quota.pods | default "10"}}
     persistentvolumeclaims: {{ .Values.quota.persistentvolumeclaims | default "20"}}
