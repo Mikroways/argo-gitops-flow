@@ -9,7 +9,9 @@ metadata:
 spec:
   limits:
   - default:
-      cpu: {{ .Values.limits.default.cpu | default "200m" }}
+      {{- with .Values.limits.default.cpu }}
+      cpu: {{ . }}
+      {{- end }}
       memory: {{ .Values.limits.default.memory | default "512Mi" }}
     defaultRequest:
       cpu: {{ .Values.limits.defaultRequest.cpu | default "100m"}}
