@@ -3,6 +3,21 @@ entries:
   argo-base-app:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2023-06-16T15:54:08.995000082Z"
+    description: 'Creates an ArgoCD base application to provide a managed namespace
+      with some policies applied: - Creates the namespace where resources shall be
+      created for a specific   team. - A docker-registry kind Secret so pods can use
+      it as ImagePullSecrets. - A ResourceQuota to ensure a controlled resource allocation
+      per namespace. - A LimitRange to force each container to set resources when
+      they are not set. '
+    digest: ba0f367fb1a586f9b4d42028ab224e48d516ad0b226be72fff8c0243ce44f6f9
+    name: argo-base-app
+    type: application
+    urls:
+    - https://github.com/Mikroways/argo-gitops-flow/releases/download/argo-base-app-1.2.1/argo-base-app-1.2.1.tgz
+    version: 1.2.1
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2023-06-16T15:42:21.860920904Z"
     description: 'Creates an ArgoCD base application to provide a managed namespace
       with some policies applied: - Creates the namespace where resources shall be
@@ -110,4 +125,4 @@ entries:
     urls:
     - https://github.com/Mikroways/argo-gitops-flow/releases/download/argo-project-1.0.4/argo-project-1.0.4.tgz
     version: 1.0.4
-generated: "2023-06-16T15:42:21.860947504Z"
+generated: "2023-06-16T15:54:08.995024384Z"
