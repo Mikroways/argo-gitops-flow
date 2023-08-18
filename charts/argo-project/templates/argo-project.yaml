@@ -1,3 +1,4 @@
+{{- $clusterName := include "argo-project.argoClusterName" . -}}
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
@@ -13,7 +14,11 @@ spec:
   - '*'
   destinations:
   - namespace: {{ .Values.namespace }}
-    name: {{ include "argo-project.argoClusterName" . }}
+    name: {{ $clusterName }}
+  {{- range .Values.argo.extraDestinations }}
+  - namespace: {{ . }}
+    name: {{ $clusterName }}
+  {{- end }}
   namespaceResourceWhitelist:
   - group: "*"
     kind: "*"
@@ -26,7 +31,7 @@ spec:
     - p, proj:{{ include "argo-project.argoProjectName" . }}:admin, exec, create, {{ include "argo-project.argoProjectName" . }}/*, allow
     {{- with .Values.argo.adminGroups }}
     groups:
-      {{- toYaml . | nindent 8 }}
+      {{- toYaml . | nindent 6 }}
     {{- end }}
   - name: readonly
     description: "{{ include "argo-project.argoProjectName" . }} ReadOnly team's deployment role"
@@ -35,7 +40,7 @@ spec:
     - p, proj:{{ include "argo-project.argoProjectName" . }}:readonly, applications, logs, {{  include "argo-project.argoProjectName" . }}/*, allow
     {{- with .Values.argo.readOnlyGroups }}
     groups:
-      {{- toYaml . | nindent 8 }}
+      {{- toYaml . | nindent 6 }}
     {{- end }}
   orphanedResources:
     warn: false

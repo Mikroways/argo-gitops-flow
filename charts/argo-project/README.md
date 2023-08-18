@@ -28,6 +28,7 @@ Los valores más importantes a tener en cuenta:
 | `argo.readOnlyGroups` | string | `[]` | Lista de grupos de AD que tendrán acceso de solo lectura en el proyecto de ArgoCD. Solo pueden ver los objetos y leer logs |
 | `argo.adminGroups` | string | `[]` | Lista de grupos de AD que tendrán acceso de administradores. Son los encargados del despliegue, entre otras cosas puede sincronizar, eliminar aplicaciones y también ejecutar la consola de los contenedores |
 | `argo.repositories:` | {} | `[]` | Lista de repositorios scoped |
+| `argo.extraDestinations:` | [] | `[]` | Lista de namespaces de destino extra que se permitirán en el proyecto |
 | `argo.baseApplication.repoURL` | string | `null` | URL del repositorio donde está el chart de dicha aplicación |
 | `argo.baseApplication.path` | string | `null` | directorio donde se encuentra el chart en caso de ser un repo git |
 | `argo.baseApplication.chart` | string | `null` | nombre del chart en caso de usar una registry de charts
