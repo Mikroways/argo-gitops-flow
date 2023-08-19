@@ -42,10 +42,10 @@ networkPolicies: {}
 quota:
   enabled: true
   requests:
-    cpu: '1'
+    cpu: "1"
     memory: 1Gi
   limits:
-    cpu: '2'
+    cpu: "2"
     memory: 2Gi
   pods: "10"
   persistentvolumeclaims: "20"
@@ -60,3 +60,27 @@ limits:
     cpu: 100m
     memory: 256Mi
   type: Container
+
+# -- Array of extra K8s manifests to deploy
+## Note: Supports use of custom Helm templates, when string value is provided.
+extraManifests:
+  []
+  # For example, a Schedule for daily Velero backups
+  ## https://velero.io/docs/v1.11/api-types/schedule/
+  # - |
+  #   apiVersion: velero.io/v1
+  #   kind: Schedule
+  #   metadata:
+  #     name: {{ $.Values.namespace }}-daily
+  #     namespace: velero
+  #   spec:
+  #     schedule: 0 3 * * 1-6
+  #     template:
+  #       csiSnapshotTimeout: 0s
+  #       includedNamespaces:
+  #         - {{ $.Values.namespace }}
+  #       itemOperationTimeout: 0s
+  #       snapshotVolumes: false
+  #       ttl: 168h0m0s
+  #     useOwnerReferencesInBackup: false
+  #     paused: false
