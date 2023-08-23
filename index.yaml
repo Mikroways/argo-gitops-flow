@@ -109,6 +109,22 @@ entries:
   argo-project:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2023-08-23T18:58:30.378156745Z"
+    description: 'Creates an ArgoCD AppProject and a sort of ArgoCD Applications to
+      bootstrap a complete environment. The AppProject would set RBAC permissions
+      to allow project admin role to manage each ArgoCD resource for this project,
+      and a read only role to view each resource and access container logs. This chart
+      also create an ArgoCD base application (managed as a chart), and allows bootstrapping
+      an ArgoCD application to setup environment resources (as databases) and the
+      project application itself. '
+    digest: b592fbcdad4ca16d7271c9ba1790fed96ba0bf1be6f7e6d1cddbb77e32d3234b
+    name: argo-project
+    type: application
+    urls:
+    - https://github.com/Mikroways/argo-gitops-flow/releases/download/argo-project-1.2.0/argo-project-1.2.0.tgz
+    version: 1.2.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2023-03-14T19:10:53.311215474Z"
     description: 'Creates an ArgoCD AppProject and a sort of ArgoCD Applications to
       bootstrap a complete environment. The AppProject would set RBAC permissions
@@ -155,4 +171,4 @@ entries:
     urls:
     - https://github.com/Mikroways/argo-gitops-flow/releases/download/argo-project-1.0.4/argo-project-1.0.4.tgz
     version: 1.0.4
-generated: "2023-08-19T11:48:43.987187005Z"
+generated: "2023-08-23T18:58:30.378184145Z"
