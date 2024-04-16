@@ -1,5 +1,5 @@
 {{- define "argo-project.argoProjectName" -}}
-{{- if .Values.ignoreClusterName -}}
+{{- if .Values.cluster.ignoreClusterName -}}
 {{- .Values.namespace | trunc 63 | trimSuffix "-"  }}
 {{- else -}}
 {{- printf "%s-%s" .Values.namespace .Values.cluster.name | trunc 63 | trimSuffix "-"  }}

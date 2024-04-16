@@ -3,10 +3,10 @@ cluster:
   name: in-cluster
   nameSuffix: ''
   address: https://kubernetes.default.svc
+  ignoreClusterName: false
 
 argo:
   namespace: argocd
-  ignoreClusterName: false
   readOnlyGroups: []
   adminGroups: []
   repositories: []
