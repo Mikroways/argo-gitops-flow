@@ -6,6 +6,7 @@ cluster:
 
 argo:
   namespace: argocd
+  ignoreClusterName: false
   readOnlyGroups: []
   adminGroups: []
   repositories: []
