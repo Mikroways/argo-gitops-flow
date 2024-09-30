@@ -32,9 +32,12 @@ argo:
     syncPolicy: {}
   application:
     enabled: false
-    repoURL: null
-    path: null
-    chart: null
-    targetRevision: null
-    helm: {}
-    syncPolicy: {}
+    sources: null
+      # array of sources
+    source: null
+      #      repoURL: null
+      #      path: null
+      #      chart: null
+      #      targetRevision: null
+      #      helm: {}
+      #      syncPolicy: {}

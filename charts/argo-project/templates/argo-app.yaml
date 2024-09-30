@@ -64,15 +64,21 @@ spec:
   destination:
     name: {{ include "argo-project.argoClusterName" . }}
     namespace: {{ .Values.namespace }}
+  {{- with .Values.argo.application.source }}
   source: 
-    repoURL: {{ .Values.argo.application.repoURL }}
-    path: {{ .Values.argo.application.path | default "" }}
-    targetRevision: {{ .Values.argo.application.targetRevision | default "x" }}
-    chart: {{ .Values.argo.application.chart | default "" }}
-    {{- with .Values.argo.application.helm }}
+    repoURL: {{ .repoURL }}
+    path: {{ .path | default "" }}
+    targetRevision: {{ .targetRevision | default "x" }}
+    chart: {{ .chart | default "" }}
+    {{- with .helm }}
     helm:
       {{- toYaml . | nindent 6 }}
     {{- end }}
+  {{- end }}
+  {{- with .Values.argo.application.sources }}
+  sources:
+    {{- toYaml . | nindent 6 }}
+  {{- end }}
   {{- with .Values.argo.application.syncPolicy }}
   syncPolicy:
     {{- toYaml . | nindent 4 }}
