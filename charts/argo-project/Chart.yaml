@@ -9,5 +9,5 @@ description: |
   allows bootstrapping an ArgoCD application to setup environment resources
   (as databases) and the project application itself.
 type: application
-version: 1.4.0
+version: 1.4.1
 appVersion: "1.16.0"

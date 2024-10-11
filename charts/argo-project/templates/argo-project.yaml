@@ -37,7 +37,8 @@ spec:
     description: "{{ include "argo-project.argoProjectName" . }} ReadOnly team's deployment role"
     policies:
     - p, proj:{{ include "argo-project.argoProjectName" . }}:readonly, applications, get, {{  include "argo-project.argoProjectName" . }}/*, allow
-    - p, proj:{{ include "argo-project.argoProjectName" . }}:readonly, applications, logs, {{  include "argo-project.argoProjectName" . }}/*, allow
+    
+    - p, proj:{{ include "argo-project.argoProjectName" . }}:readonly, logs, get, {{  include "argo-project.argoProjectName" . }}/*, allow
     {{- with .Values.argo.readOnlyGroups }}
     groups:
       {{- toYaml . | nindent 6 }}
