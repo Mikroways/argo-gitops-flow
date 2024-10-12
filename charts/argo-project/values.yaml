@@ -7,6 +7,12 @@ cluster:
 
 argo:
   namespace: argocd
+  clusterResourceWhitelist: {}
+  clusterResourceBlacklist: {}
+  namespaceResourceBlacklist: {}
+  namespaceResourceWhitelist:
+    - group: "*"
+      kind: "*"
   readOnlyGroups: []
   adminGroups: []
   repositories: []

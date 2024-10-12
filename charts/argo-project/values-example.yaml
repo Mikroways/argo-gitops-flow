@@ -10,6 +10,9 @@ argo:
   extraDestinations:
     - extra-namespace
     - another-namespace
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
   repositories:
     - name: my-repo
       url: htts://a-url.repo.com/project/app

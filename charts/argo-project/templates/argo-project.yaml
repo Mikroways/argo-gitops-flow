@@ -19,9 +19,22 @@ spec:
   - namespace: {{ . }}
     name: {{ $clusterName }}
   {{- end }}
+  {{- with .Values.argo.clusterResourceWhitelist }}
+  clusterResourceWhitelist:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.argo.clusterResourceBlacklist }}
+  clusterResourceBlacklist:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.argo.namespaceResourceWhitelist }}
   namespaceResourceWhitelist:
-  - group: "*"
-    kind: "*"
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.argo.namespaceResourceBlacklist }}
+  namespaceResourceBlacklist:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   roles:
   - name: admin
     description: "{{ include "argo-project.argoProjectName" . }} Admin team's deployment role"
