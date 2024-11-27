@@ -38,6 +38,23 @@ spec:
   destination:
     name: {{ include "argo-project.argoClusterName" . }}
     namespace: {{ .Values.namespace }}
+  {{- if or .Values.argo.applicationRequirements.source .Values.argo.applicationRequirements.sources }}
+  {{- with .Values.argo.applicationRequirements.source }}
+  source: 
+    repoURL: {{ .repoURL }}
+    path: {{ .path | default "" }}
+    targetRevision: {{ .targetRevision | default "x" }}
+    chart: {{ .chart | default "" }}
+    {{- with .helm }}
+    helm:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+  {{- end }}
+  {{- with .Values.argo.applicationRequirements.sources }}
+  sources:
+    {{- toYaml . | nindent 6 }}
+  {{- end }}
+  {{- else }}
   source: 
     repoURL: {{ .Values.argo.applicationRequirements.repoURL }}
     path: {{ .Values.argo.applicationRequirements.path | default "" }}
@@ -47,6 +64,7 @@ spec:
     helm:
       {{- toYaml . | nindent 6 }}
     {{- end }}
+  {{- end }}
   {{- with .Values.argo.applicationRequirements.syncPolicy }}
   syncPolicy:
     {{- toYaml . | nindent 4 }}
@@ -64,6 +82,7 @@ spec:
   destination:
     name: {{ include "argo-project.argoClusterName" . }}
     namespace: {{ .Values.namespace }}
+  {{- if or .Values.argo.application.source .Values.argo.application.sources }}
   {{- with .Values.argo.application.source }}
   source: 
     repoURL: {{ .repoURL }}
@@ -78,6 +97,17 @@ spec:
   {{- with .Values.argo.application.sources }}
   sources:
     {{- toYaml . | nindent 6 }}
+  {{- end }}
+  {{- else }}
+  source: 
+    repoURL: {{ .Values.argo.application.repoURL }}
+    path: {{ .Values.argo.application.path | default "" }}
+    targetRevision: {{ .Values.argo.application.targetRevision | default "x" }}
+    chart: {{ .Values.argo.application.chart | default "" }}
+    {{- with .Values.argo.application.helm }}
+    helm:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
   {{- end }}
   {{- with .Values.argo.application.syncPolicy }}
   syncPolicy:

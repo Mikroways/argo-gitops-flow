@@ -7,9 +7,9 @@ cluster:
 
 argo:
   namespace: argocd
-  clusterResourceWhitelist: {}
-  clusterResourceBlacklist: {}
-  namespaceResourceBlacklist: {}
+  clusterResourceWhitelist: []
+  clusterResourceBlacklist: []
+  namespaceResourceBlacklist: []
   namespaceResourceWhitelist:
     - group: "*"
       kind: "*"
@@ -30,20 +30,110 @@ argo:
     syncPolicy: {}
   applicationRequirements:
     enabled: false
+    # New syntax to define applications with array of sources and multiple
+    # remote values. Depreacte old syntax
+    # array of sources
+    # sources:
+    # - repoURL: registry.oci.example.com
+    #   chart: helm-charts/my-apps
+    #   targetRevision: 0.0.1
+    #   helm:
+    #     values: |
+    #       value_key1: value1
+    #       value_key2: value2
+    #       dict_value:
+    #         key1: value1
+    #         key2: value2
+    #     valueFiles:
+    #     - $values/common/values.yaml
+    #     - $values/common/prod/values.yaml
+    #     - secrets+age-import:///argo-cd/key.txt?$values/common/prod/secrets.yaml
+    # - repoURL: https://github.com/Mikroways/some-repo-with-values.git
+    #   targetRevision: main
+    #   ref: values
+    sources: null
+
+    # New syntax to define applications. Depreacte old syntax
+    #   repoURL: https://github.com/Mikroways/some-chart-repo.git
+    #   targetRevision: main
+    #   path: reqs/
+    #   helm:
+    #     values: |
+    #       value_key1: value1
+    #       value_key2: value2
+    #       dict_value:
+    #         key1: value1
+    #         key2: value2
+    #     valueFiles:
+    #     - values.yaml
+    #     - secrets+age-import:///argo-cd/key.txt?secrets.yaml
+    source: null
+
+    ####################################################3
+    # Deprecated syntax. Will be removed in 1.6
+    ####################################################3
     repoURL: null
     path: null
     chart: null
     targetRevision: null
     helm: {}
+    ####################################################3
+    # End deprecation
+    ####################################################3
+    # Default sync policy
     syncPolicy: {}
+
   application:
     enabled: false
-    sources: null
-      # array of sources
+    # New syntax to define applications with array of sources and multiple
+    # remote values. Depreacte old syntax
+    # array of sources
+    # sources:
+    # - repoURL: registry.oci.example.com
+    #   chart: helm-charts/my-apps
+    #   targetRevision: 0.0.1
+    #   helm:
+    #     values: |
+    #       value_key1: value1
+    #       value_key2: value2
+    #       dict_value:
+    #         key1: value1
+    #         key2: value2
+    #     valueFiles:
+    #     - $values/common/values.yaml
+    #     - $values/common/prod/values.yaml
+    #     - secrets+age-import:///argo-cd/key.txt?$values/common/prod/secrets.yaml
+    # - repoURL: https://github.com/Mikroways/some-repo-with-values.git
+    #   targetRevision: main
+    #   ref: values
+    sources: []
+
+    # New syntax to define applications. Depreacte old syntax
+    #   repoURL: https://github.com/Mikroways/some-chart-repo.git
+    #   targetRevision: main
+    #   path: reqs/
+    #   helm:
+    #     values: |
+    #       value_key1: value1
+    #       value_key2: value2
+    #       dict_value:
+    #         key1: value1
+    #         key2: value2
+    #     valueFiles:
+    #     - values.yaml
+    #     - secrets+age-import:///argo-cd/key.txt?secrets.yaml
     source: null
-      #      repoURL: null
-      #      path: null
-      #      chart: null
-      #      targetRevision: null
-      #      helm: {}
-      #      syncPolicy: {}
+    ####################################################3
+    # Deprecated syntax. Will be removed in 1.6
+    ####################################################3
+    repoURL: null
+    path: null
+    chart: null
+    targetRevision: null
+    helm: {}
+    ####################################################3
+    # End deprecation
+    ####################################################3
+    
+    # Default sync policy
+    syncPolicy: {}

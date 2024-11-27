@@ -10,9 +10,6 @@ argo:
   extraDestinations:
     - extra-namespace
     - another-namespace
-  clusterResourceWhitelist:
-    - group: "*"
-      kind: "*"
   repositories:
     - name: my-repo
       url: htts://a-url.repo.com/project/app
@@ -20,26 +17,28 @@ argo:
       password: secret-pass
   applicationRequirements:
     enabled: true
-    repoURL: https://charts.bitnami.com/bitnami
-    targetRevision: 11.3.x
-    chart: mariadb
-    helm:
-      values: |
-        auth:
-          rootPassword: rootpass
-          database: my-app-db
-          username: user
-          password: supersecret
-  application:
-    enabled: true
     source:
-      repoURL: https://app-chart-repo
-      path: my-project
-      targetRevision: HEAD
+      repoURL: https://charts.bitnami.com/bitnami
+      targetRevision: 11.3.x
+      chart: mariadb
       helm:
         values: |
-          myValue: 1
-        valueFiles:
-          - values.yaml
-          - values-version.yaml
-          - secrets+age-import:///helm-secrets-private-keys/age-key.txt?values-secrets.yaml
+          auth:
+            rootPassword: rootpass
+            database: my-app-db
+            username: user
+            password: supersecret
+  application:
+    enabled: true
+    sources:
+      - repoURL: 'https://prometheus-community.github.io/helm-charts'
+        chart: prometheus
+        targetRevision: 15.7.1
+        helm:
+          valueFiles:
+          - $values/charts/prometheus/values.yaml
+      - repoURL: 'https://git.example.com/org/value-files.git'
+        targetRevision: dev
+        ref: values
+
+
