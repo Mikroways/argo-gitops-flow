@@ -16,6 +16,12 @@ cluster de Kubernetes. Básicamente se encarga de crear:
 - Una **Aplicación final**: La aplicación funcional que se quiere desplegar en
   el cluster y para lo que se realizó toda la configuración previa.
 
+## Version de ArgoCD
+
+Si se utiliza una versión superior a la 2.3, se debe usar al menos la version 2
+del chart. Por el conrtario, usar la versión 1.X.X.
+
+
 ## Valores
 
 Los valores más importantes a tener en cuenta:
